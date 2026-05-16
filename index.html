@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio sophistiqué — Développeur Web Full Stack" />
+    <title>Portfolio — Votre Nom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">DEV</span>
+                <span class="logo-bracket">/&gt;</span>
+            </div>
+            <div class="preloader-bar">
+                <div class="preloader-fill" id="preloaderFill"></div>
+            </div>
+            <span class="preloader-percent" id="preloaderPercent">0%</span>
+        </div>
+    </div>
+
+    <!-- Texture noise -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- Orbe souris -->
+    <div class="mouse-orb" id="mouseOrb" aria-hidden="true"></div>
+
+    <!-- Curseur personnalisé -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Canvas pour les particules -->
+    <canvas id="particles"></canvas>
+
+    <!-- Barre de progression du scroll -->
+    <div class="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">DEV</span>
+                <span class="logo-bracket">/&gt;</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-text="Accueil">Accueil</a></li>
+                <li><a href="#about" class="nav-link" data-text="À propos">À propos</a></li>
+                <li><a href="#parcours" class="nav-link" data-text="Parcours">Parcours</a></li>
+                <li><a href="#skills" class="nav-link" data-text="Compétences">Compétences</a></li>
+                <li><a href="#services" class="nav-link" data-text="Services">Services</a></li>
+                <li><a href="#projects" class="nav-link" data-text="Projets">Projets</a></li>
+                <li><a href="#contact" class="nav-link" data-text="Contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="grid-overlay"></div>
+        </div>
+
+        <div class="hero-content container">
+            <div class="hero-tag" data-aos="fade-up">
+                <span class="dot"></span>
+                Disponible pour de nouveaux projets
+            </div>
+
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                <span class="line">Bonjour, je suis</span>
+                <span class="line gradient-text" id="typedName">Votre Nom</span>
+                <span class="line subtitle">
+                    <span class="role-prefix">&gt;</span>
+                    <span id="typedRole" class="typed-role"></span><span class="cursor-blink">|</span>
+                </span>
+            </h1>
+
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                Je conçois des expériences numériques élégantes, performantes et accessibles.
+                Passionné par l'intersection du design et de la technologie, je transforme des idées
+                en interfaces interactives soignées.
+            </p>
+
+            <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
+                <a href="#projects" class="btn btn-primary magnetic">
+                    <span>Voir mes projets</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+                <a href="#contact" class="btn btn-ghost">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Projets livrés</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Années d'expérience</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-number" data-target="30">0</div>
+                    <div class="stat-label">Clients satisfaits</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- À PROPOS — 01 -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">01</span>
+                <h2 class="section-title">À propos de moi</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-image" data-aos="fade-right">
+                    <div class="image-wrapper">
+                        <div class="image-frame">
+                            <div class="avatar">
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#6366f1"/>
+                                            <stop offset="100%" stop-color="#a855f7"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="100" cy="100" r="100" fill="url(#avatarGrad)"/>
+                                    <circle cx="100" cy="80" r="32" fill="#fff" opacity="0.95"/>
+                                    <path d="M40 200 Q40 130 100 130 Q160 130 160 200 Z" fill="#fff" opacity="0.95"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="image-decoration deco-1"></div>
+                        <div class="image-decoration deco-2"></div>
+                    </div>
+                </div>
+
+                <div class="about-content" data-aos="fade-left">
+                    <h3 class="about-heading">Développeur passionné par les détails qui font la différence.</h3>
+
+                    <p class="about-text">
+                        Depuis plus de cinq ans, je conçois et construis des produits numériques pour
+                        des startups et de grandes entreprises. Mon approche allie une exigence technique
+                        rigoureuse à une sensibilité forte pour le design et l'expérience utilisateur.
+                    </p>
+
+                    <p class="about-text">
+                        Je crois aux interfaces qui respectent leurs utilisateurs : rapides, lisibles, accessibles,
+                        et qui savent disparaître pour laisser place au contenu.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nom</span>
+                            <span class="info-value">Votre Nom</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">contact@exemple.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Localisation</span>
+                            <span class="info-value">Paris, France</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Disponibilité</span>
+                            <span class="info-value">Freelance & CDI</span>
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary download-btn magnetic">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        <span>Télécharger le CV</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARCOURS — 02 -->
+    <section class="parcours section" id="parcours">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Parcours</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="timeline-wrapper">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">2023 — Présent</span>
+                            <span class="timeline-badge">CDI</span>
+                        </div>
+                        <h3 class="timeline-title">Lead Developer</h3>
+                        <span class="timeline-company">Startup XYZ · Paris</span>
+                        <p class="timeline-desc">Pilotage technique de l'équipe, définition de l'architecture cloud-native et mise en œuvre d'une plateforme SaaS scalable. Réduction de 40 % du temps de déploiement via l'automatisation CI/CD.</p>
+                        <div class="timeline-tags">
+                            <span>Next.js</span><span>TypeScript</span><span>AWS</span><span>Kubernetes</span><span>GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">2021 — 2023</span>
+                            <span class="timeline-badge">CDI</span>
+                        </div>
+                        <h3 class="timeline-title">Développeur Full Stack</h3>
+                        <span class="timeline-company">Agence Creative ABC · Lyon</span>
+                        <p class="timeline-desc">Développement d'applications web sur-mesure pour une clientèle B2B. Livraison de 15+ projets dont une marketplace e-commerce générant plus de 2 M€ de transactions annuelles.</p>
+                        <div class="timeline-tags">
+                            <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">2019 — 2021</span>
+                            <span class="timeline-badge">Freelance</span>
+                        </div>
+                        <h3 class="timeline-title">Développeur Frontend</h3>
+                        <span class="timeline-company">Indépendant · Remote</span>
+                        <p class="timeline-desc">Conception et développement de sites vitrines et landing pages pour startups et PME. Expertise acquise en optimisation des performances (Core Web Vitals) et accessibilité WCAG 2.1.</p>
+                        <div class="timeline-tags">
+                            <span>Vue.js</span><span>Nuxt</span><span>Figma</span><span>GSAP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-dot timeline-dot--edu"></div>
+                    <div class="timeline-content glass-card">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">2017 — 2019</span>
+                            <span class="timeline-badge">Formation</span>
+                        </div>
+                        <h3 class="timeline-title">Master Informatique — Génie Logiciel</h3>
+                        <span class="timeline-company">Université de Paris · Paris</span>
+                        <p class="timeline-desc">Spécialisation en architecture logicielle et développement web avancé. Mémoire de recherche sur les micro-services et l'architecture hexagonale. Major de promotion.</p>
+                        <div class="timeline-tags">
+                            <span>Algorithmique</span><span>Design Patterns</span><span>UML</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPÉTENCES — 03 -->
+    <section class="skills section" id="skills">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Compétences</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="skills-tabs" data-aos="fade-up">
+                <button class="tab-btn active" data-tab="frontend">Frontend</button>
+                <button class="tab-btn" data-tab="backend">Backend</button>
+                <button class="tab-btn" data-tab="tools">Outils & Design</button>
+            </div>
+
+            <div class="skills-panels">
+                <div class="skills-panel active" data-panel="frontend">
+                    <div class="skill-grid">
+                        <div class="skill-card" data-aos="zoom-in">
+                            <div class="skill-icon">⚛️</div>
+                            <h4>React / Next.js</h4>
+                            <div class="skill-bar"><span style="--w:95%"></span></div>
+                            <span class="skill-level">95%</span>
+                        </div>
+                        <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="skill-icon">🟦</div>
+                            <h4>TypeScript</h4>
+                            <div class="skill-bar"><span style="--w:90%"></span></div>
+                            <span class="skill-level">90%</span>
+                        </div>
+                        <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="skill-icon">🎨</div>
+                            <h4>CSS / Tailwind</h4>
+                            <div class="skill-bar"><span style="--w:92%"></span></div>
+                            <span class="skill-level">92%</span>
+                        </div>
+                        <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="skill-icon">💚</div>
+                            <h4>Vue.js</h4>
+                            <div class="skill-bar"><span style="--w:80%"></span></div>
+                            <span class="skill-level">80%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-panel" data-panel="backend">
+                    <div class="skill-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">🟢</div>
+                            <h4>Node.js</h4>
+                            <div class="skill-bar"><span style="--w:88%"></span></div>
+                            <span class="skill-level">88%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🐍</div>
+                            <h4>Python</h4>
+                            <div class="skill-bar"><span style="--w:85%"></span></div>
+                            <span class="skill-level">85%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🐘</div>
+                            <h4>PostgreSQL</h4>
+                            <div class="skill-bar"><span style="--w:82%"></span></div>
+                            <span class="skill-level">82%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🍃</div>
+                            <h4>MongoDB</h4>
+                            <div class="skill-bar"><span style="--w:78%"></span></div>
+                            <span class="skill-level">78%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-panel" data-panel="tools">
+                    <div class="skill-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon">🐳</div>
+                            <h4>Docker</h4>
+                            <div class="skill-bar"><span style="--w:80%"></span></div>
+                            <span class="skill-level">80%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🎯</div>
+                            <h4>Figma</h4>
+                            <div class="skill-bar"><span style="--w:88%"></span></div>
+                            <span class="skill-level">88%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">🔧</div>
+                            <h4>Git / CI/CD</h4>
+                            <div class="skill-bar"><span style="--w:90%"></span></div>
+                            <span class="skill-level">90%</span>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-icon">☁️</div>
+                            <h4>AWS / GCP</h4>
+                            <div class="skill-bar"><span style="--w:75%"></span></div>
+                            <span class="skill-level">75%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES — 04 -->
+    <section class="services section" id="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Services</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up">
+                    <span class="service-number">01</span>
+                    <div class="service-icon-wrap">🌐</div>
+                    <h3>Développement Web</h3>
+                    <p>Des applications web performantes et modernes, construites avec les meilleures technologies et optimisées pour chaque appareil.</p>
+                    <ul class="service-list">
+                        <li>Applications React / Next.js</li>
+                        <li>APIs REST &amp; GraphQL</li>
+                        <li>Bases de données &amp; backend</li>
+                        <li>Optimisation des performances</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="service-number">02</span>
+                    <div class="service-icon-wrap">✦</div>
+                    <h3>Design UI/UX</h3>
+                    <p>Des interfaces intuitives et esthétiques qui placent l'utilisateur au centre, en alliant rigueur UX et sensibilité visuelle.</p>
+                    <ul class="service-list">
+                        <li>Wireframes &amp; prototypes Figma</li>
+                        <li>Design systems cohérents</li>
+                        <li>Tests utilisateurs &amp; itération</li>
+                        <li>Accessibilité WCAG 2.1</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="service-number">03</span>
+                    <div class="service-icon-wrap">📱</div>
+                    <h3>Applications Mobiles</h3>
+                    <p>Des apps cross-platform fluides déployées sur iOS et Android à partir d'une base de code unifiée.</p>
+                    <ul class="service-list">
+                        <li>React Native &amp; Expo</li>
+                        <li>Flutter (Dart)</li>
+                        <li>Publication App Store &amp; Play Store</li>
+                        <li>Intégrations push &amp; analytics</li>
+                    </ul>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="service-number">04</span>
+                    <div class="service-icon-wrap">⚙️</div>
+                    <h3>Conseil &amp; Architecture</h3>
+                    <p>Un regard expert pour auditer, structurer ou refactoriser vos projets techniques et préparer votre passage à l'échelle.</p>
+                    <ul class="service-list">
+                        <li>Audit de code &amp; performance</li>
+                        <li>Architecture cloud &amp; DevOps</li>
+                        <li>Migration &amp; refactoring</li>
+                        <li>Formation d'équipe</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJETS — 05 -->
+    <section class="projects section" id="projects">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Projets sélectionnés</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="projects-filter" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project-card" data-category="web" data-aos="fade-up"
+                    data-title="Plateforme E-commerce"
+                    data-description="Développement d'une marketplace B2C complète avec catalogue produits, panier, paiement Stripe 3D Secure, dashboard analytics en temps réel et back-office administrateur. Architecture microservices déployée sur AWS ECS avec CDN CloudFront pour des performances optimales."
+                    data-tech="Next.js,TypeScript,Stripe,PostgreSQL,Redis,AWS"
+                    data-year="2024" data-status="En production" data-cat="Web App"
+                    data-emoji="🎨" data-grad="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="project-emoji">🎨</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" aria-label="Voir le projet" onclick="event.stopPropagation()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </a>
+                                <a href="#" aria-label="Voir le code" onclick="event.stopPropagation()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>Next.js</span><span>TypeScript</span><span>Stripe</span>
+                        </div>
+                        <h3>Plateforme E-commerce</h3>
+                        <p>Une marketplace moderne avec paiement intégré, dashboard admin et analytics en temps réel.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+
+                <article class="project-card" data-category="mobile" data-aos="fade-up" data-aos-delay="100"
+                    data-title="App de Fitness"
+                    data-description="Application mobile cross-platform de suivi sportif avec plans d'entraînement générés par IA (OpenAI), tracking GPS, statistiques détaillées, classements sociaux et système de badges gamifié. Intégration Apple Health et Google Fit."
+                    data-tech="React Native,Firebase,OpenAI,Redux,Expo"
+                    data-year="2023" data-status="En production" data-cat="Mobile"
+                    data-emoji="📱" data-grad="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="project-emoji">📱</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>React Native</span><span>Firebase</span>
+                        </div>
+                        <h3>App de Fitness</h3>
+                        <p>Application de suivi sportif avec coach IA, plans personnalisés et communauté intégrée.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+
+                <article class="project-card" data-category="web" data-aos="fade-up" data-aos-delay="200"
+                    data-title="Dashboard Analytics"
+                    data-description="Outil de business intelligence avec visualisations interactives D3.js, tableaux croisés dynamiques, filtres avancés, alertes configurables et exports automatisés PDF/Excel. Connexions natives aux APIs Salesforce, HubSpot et Mixpanel."
+                    data-tech="Vue 3,D3.js,Python,FastAPI,ClickHouse"
+                    data-year="2023" data-status="En production" data-cat="Web App"
+                    data-emoji="📊" data-grad="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="project-emoji">📊</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>Vue 3</span><span>D3.js</span><span>Python</span>
+                        </div>
+                        <h3>Dashboard Analytics</h3>
+                        <p>Outil de business intelligence avec visualisations interactives et exports automatisés.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+
+                <article class="project-card" data-category="design" data-aos="fade-up"
+                    data-title="Identité de marque"
+                    data-description="Refonte complète de l'identité visuelle — logo, charte graphique, design system Figma, guidelines de communication et templates pour réseaux sociaux. Résultat : +35 % de mémorisation de marque mesuré en tests utilisateurs."
+                    data-tech="Figma,Illustrator,Photoshop,Notion"
+                    data-year="2022" data-status="Livré" data-cat="Design"
+                    data-emoji="🎭" data-grad="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="project-emoji">🎭</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>Figma</span><span>Branding</span>
+                        </div>
+                        <h3>Identité de marque</h3>
+                        <p>Refonte complète de l'identité visuelle pour une startup tech, du logo au design system.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+
+                <article class="project-card" data-category="web" data-aos="fade-up" data-aos-delay="100"
+                    data-title="Chatbot IA"
+                    data-description="Assistant conversationnel multilingue basé sur GPT-4 avec retrieval-augmented generation (RAG), base de connaissances vectorielle Pinecone, historique des conversations persistant et escalade automatique vers un agent humain en cas de blocage."
+                    data-tech="OpenAI,Next.js,Postgres,Pinecone,LangChain"
+                    data-year="2024" data-status="En production" data-cat="Web App"
+                    data-emoji="🤖" data-grad="linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="project-emoji">🤖</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>OpenAI</span><span>Next.js</span><span>Postgres</span>
+                        </div>
+                        <h3>Chatbot IA</h3>
+                        <p>Assistant conversationnel intelligent intégré au support client, avec base de connaissances.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+
+                <article class="project-card" data-category="mobile" data-aos="fade-up" data-aos-delay="200"
+                    data-title="App Méditation"
+                    data-description="Application bien-être avec 200+ séances audio guidées, journal de gratitude, streaks de méditation, statistiques de progression et mode hors-ligne complet. Intégration de notifications intelligentes basées sur les habitudes de l'utilisateur."
+                    data-tech="Flutter,Dart,Supabase,RevenueCat,Riverpod"
+                    data-year="2023" data-status="En production" data-cat="Mobile"
+                    data-emoji="🌱" data-grad="linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+                    data-link="#" data-github="#">
+                    <div class="project-image" style="--grad: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <div class="project-emoji">🌱</div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                                <a href="#" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span>Flutter</span><span>Supabase</span>
+                        </div>
+                        <h3>App Méditation</h3>
+                        <p>Application bien-être avec séances audio, journal personnel et statistiques de progression.</p>
+                        <span class="project-cta">Voir les détails →</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT — 06 -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-number">06</span>
+                <h2 class="section-title">Travaillons ensemble</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-right">
+                    <h3>Discutons de votre projet</h3>
+                    <p>Je suis toujours intéressé par de nouveaux défis. N'hésitez pas à me contacter pour discuter d'une collaboration, d'une mission ou simplement échanger.</p>
+
+                    <div class="contact-methods">
+                        <a href="mailto:contact@exemple.com" class="contact-method">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">contact@exemple.com</span>
+                            </div>
+                        </a>
+
+                        <a href="tel:+33600000000" class="contact-method">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-label">Téléphone</span>
+                                <span class="contact-value">+33 6 00 00 00 00</span>
+                            </div>
+                        </a>
+
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-label">Localisation</span>
+                                <span class="contact-value">Paris, France</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" aria-label="Dribbble"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.628 0 12 0zm9.885 11.441c-2.575-.422-4.943-.445-7.103-.073-.244-.563-.497-1.125-.767-1.68 2.31-1 4.165-2.358 5.548-4.082 1.35 1.594 2.197 3.619 2.322 5.835zm-3.842-7.282c-1.205 1.554-2.868 2.783-4.986 3.68-1.016-1.861-2.178-3.676-3.488-5.438.779-.197 1.591-.314 2.431-.314 2.275 0 4.368.779 6.043 2.072zM7.27 1.527c1.319 1.732 2.484 3.519 3.518 5.4-2.96.787-6.354 1.137-10.182 1.057.7-2.836 2.681-5.142 5.262-6.457zM.388 12.116c4.115.156 7.683-.255 10.717-1.234.291.604.566 1.227.825 1.858-3.057.94-5.752 2.755-7.806 5.331a11.097 11.097 0 0 1-2.864-7.483 11.6 11.6 0 0 1 .128-.472zm5.224 8.766c1.847-2.5 4.388-4.279 7.461-5.219 1.018 2.677 1.737 5.4 2.157 8.157-3.296 1.42-7.144 1.001-9.618-2.938zm12.131 1.962c-.421-2.682-1.131-5.314-2.122-7.91 2.082-.273 4.292-.245 6.625.139-.451 3.118-2.05 5.864-4.503 7.771z"/></svg></a>
+                    </div>
+                </div>
+
+                <form class="contact-form glass-card" data-aos="fade-left" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required />
+                        <label for="name">Nom complet</label>
+                        <span class="form-line"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required />
+                        <label for="email">Adresse email</label>
+                        <span class="form-line"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" required />
+                        <label for="subject">Sujet</label>
+                        <span class="form-line"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">Votre message</label>
+                        <span class="form-line"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-submit magnetic">
+                        <span class="btn-text">Envoyer le message</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <span class="logo-bracket">&lt;</span>
+                        <span class="logo-text">DEV</span>
+                        <span class="logo-bracket">/&gt;</span>
+                    </a>
+                    <p>Concevoir des expériences digitales sophistiquées.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <a href="#home">Accueil</a>
+                    <a href="#about">À propos</a>
+                    <a href="#parcours">Parcours</a>
+                    <a href="#projects">Projets</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Suivre</h4>
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Dribbble</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> Votre Nom. Tous droits réservés.</p>
+                <p>Conçu et codé avec attention.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bouton retour en haut -->
+    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
+
+    <!-- MODAL PROJETS -->
+    <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-label="Détail du projet">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-bg" id="modalHeaderBg"></div>
+                <div class="modal-header-emoji" id="modalEmoji"></div>
+                <button class="modal-close" id="modalClose" aria-label="Fermer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tags-row" id="modalTags"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Année</span>
+                        <span class="modal-meta-value" id="modalYear"></span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Catégorie</span>
+                        <span class="modal-meta-value" id="modalCategory"></span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Statut</span>
+                        <span class="modal-meta-value" id="modalStatus"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn btn-primary" id="modalLinkLive" target="_blank" rel="noopener noreferrer">
+                        <span>Voir le projet</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <a href="#" class="btn btn-ghost" id="modalLinkGithub" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        <span>Code source</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
